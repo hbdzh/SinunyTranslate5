@@ -1,0 +1,78 @@
+﻿<Page
+    x:Class="SinunyTranslate.View.DictManagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SinunyTranslate.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    Margin="15,0,0,0">
+    <StackPanel>
+        <TextBlock
+            Text="词典管理"
+            FontSize="16"
+            FontWeight="SemiBold"
+            Margin="0,0,0,10" />
+        <controls:DataGrid
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            AutoGenerateColumns="False"
+            IsReadOnly="True"
+            ItemsSource="{x:Bind Path=DictManageVM.DictMangerListM,Mode=OneWay}"
+            SelectedIndex="{x:Bind Path=DictManageVM.DictMangerM.SelectRow,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior
+                    EventName="DoubleTapped">
+                    <core:EventTriggerBehavior.Actions>
+                        <core:InvokeCommandAction
+                            Command="{x:Bind Path=DictManageVM.DictDoubleTappedCommand}" />
+                    </core:EventTriggerBehavior.Actions>
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn
+                    Header="代码"
+                    Binding="{Binding Code}"
+                    Tag="Code" />
+                <controls:DataGridTextColumn
+                    Header="名字"
+                    Binding="{Binding Name}"
+                    Tag="Name" />
+                <controls:DataGridTextColumn
+                    Header="作者"
+                    Binding="{Binding Author}"
+                    Tag="Author" />
+                <controls:DataGridTextColumn
+                    Header="大小"
+                    Binding="{Binding Size}"
+                    Tag="Size" />
+                <controls:DataGridTextColumn
+                    Header="简介"
+                    Binding="{Binding Intro}"
+                    Tag="Intro" />
+                <controls:DataGridTextColumn
+                    Header="状态"
+                    Binding="{Binding Status}"
+                    Tag="Status" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="1*"
+                    MinWidth="65"
+                    MaxWidth="125" />
+                <ColumnDefinition
+                    Width="0.1*" />
+                <ColumnDefinition
+                    Width="1*"
+                    MinWidth="65"
+                    MaxWidth="125" />
+                <ColumnDefinition
+                    Width="5*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </StackPanel>
+</Page>
