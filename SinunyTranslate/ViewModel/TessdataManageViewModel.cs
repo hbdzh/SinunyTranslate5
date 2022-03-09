@@ -8,9 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.UI.Xaml.Controls;
 
 namespace SinunyTranslate.ViewModel
 {
@@ -27,14 +29,14 @@ namespace SinunyTranslate.ViewModel
         {
             SettingM = new TessdataManageModel();
             SettingM.PackList = new List<PackList>();
-            PackDoubleTappedCommand = new RelayCommand(PackDoubleTapped);
+            PackDoubleTappedCommand = new RelayCommand<object>(new Action<object>(PackDoubleTapped));
             AppConfig.AllOcrLanguage_Tesseract = new Dictionary<string, string> { { "简体中文", "chi_sim" } };
             InitPackList();
         }
         /// <summary>
         /// 双击下载/删除语言包
         /// </summary>
-        private async void PackDoubleTapped()
+        private async void PackDoubleTapped(object process)
         {
             string selectPack = SettingM.SelectPack.Code;
             StorageFolder storageFolder = ApplicationData.Current.LocalCacheFolder;
@@ -43,10 +45,8 @@ namespace SinunyTranslate.ViewModel
             StorageFile sampleFile = await tessdataFolder.CreateFileAsync(selectPack + ".traineddata", CreationCollisionOption.ReplaceExisting);
             if (SettingM.SelectPack.Status == "未下载")
             {
-                using (Stream packStream = await DownloadPack("https://download.meixiapp.com/SinunyTranslate/5_0_0/LanguagePack/tessdata/packs/" + selectPack + ".traineddata"))
-                {
-                    await FileIO.WriteBytesAsync(sampleFile, StreamToBytes(packStream));
-                }
+                FileDownload fileDownload = new FileDownload((ProgressBar)process, "https://download.meixiapp.com/SinunyTranslate/5_0_0/LanguagePack/tessdata/packs/" + selectPack + ".traineddata", sampleFile);
+                fileDownload.worker.RunWorkerAsync();
             }
             else
             {
@@ -104,26 +104,6 @@ namespace SinunyTranslate.ViewModel
                     return reader.ReadToEnd();
                 }
             }
-        }
-        /// <summary>
-        /// 下载文件
-        /// </summary>
-        /// <param name="fileUrl"></param>
-        /// <returns></returns>
-        internal static async Task<Stream> DownloadPack(string fileUrl)
-        {
-            HttpClient httpClient = new HttpClient();
-            HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, fileUrl);
-            var resp = await httpClient.SendAsync(httpRequestMessage);
-            return await resp.Content.ReadAsStreamAsync();
-        }
-        private static byte[] StreamToBytes(Stream stream)
-        {
-            byte[] bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
-            // 设置当前流的位置为流的开始 
-            stream.Seek(0, SeekOrigin.Begin);
-            return bytes;
         }
     }
 }

@@ -107,7 +107,7 @@
             HorizontalAlignment="Stretch"
             TextWrapping="Wrap"
             AcceptsReturn="True"
-            CharacterSpacing="110"
+            CharacterSpacing="105"
             FontSize="16"
             PlaceholderText="要翻译的内容"
             Text="{x:Bind Path=TransVM.Tran.TranslateContent,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">

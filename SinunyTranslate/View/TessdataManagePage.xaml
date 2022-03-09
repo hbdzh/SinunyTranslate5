@@ -17,6 +17,7 @@
             Margin="0,0,0,10" />
         <ListView
             Name="LangPackList"
+            Margin="0,0,0,10"
             ItemsSource="{x:Bind SettingVM.SettingM.PackList,Mode=OneWay}"
             SelectedItem="{x:Bind SettingVM.SettingM.SelectPack,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
             <interactivity:Interaction.Behaviors>
@@ -24,7 +25,8 @@
                     EventName="DoubleTapped">
                     <core:EventTriggerBehavior.Actions>
                         <core:InvokeCommandAction
-                            Command="{x:Bind Path=SettingVM.PackDoubleTappedCommand}" />
+                            Command="{x:Bind Path=SettingVM.PackDoubleTappedCommand}"
+                            CommandParameter="{x:Bind Path=downloadProgress}" />
                     </core:EventTriggerBehavior.Actions>
                 </core:EventTriggerBehavior>
             </interactivity:Interaction.Behaviors>
@@ -47,5 +49,15 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel>
+            <TextBlock
+                Text="语言包下载进度"
+                Margin="0,0,0,10"
+                FontSize="16"
+                FontWeight="SemiBold" />
+            <ProgressBar
+                Name="downloadProgress"
+                Value="0"/>
+        </StackPanel>
     </StackPanel>
 </Page>

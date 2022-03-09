@@ -20,7 +20,7 @@
                     Value="True" />
                 <Setter
                     Property="CharacterSpacing"
-                    Value="110" />
+                    Value="105" />
                 <Setter
                     Property="FontSize"
                     Value="16" />

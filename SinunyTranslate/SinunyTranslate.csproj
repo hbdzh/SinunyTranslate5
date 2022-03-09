@@ -124,6 +124,7 @@
     <Compile Include="Common\ApiSign.cs" />
     <Compile Include="Common\AppConfig.cs" />
     <Compile Include="Common\DetectLanguage.cs" />
+    <Compile Include="Common\FileDownload.cs" />
     <Compile Include="Common\TransCodeConvert.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

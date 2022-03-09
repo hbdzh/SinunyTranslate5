@@ -92,7 +92,7 @@
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
             AcceptsReturn="True"
-            CharacterSpacing="110"
+            CharacterSpacing="105"
             FontSize="16"
             IsReadOnly="True"
             Visibility="{x:Bind Path=ToolVM.ToolBoxM.ResultShow,Mode=OneWay}"

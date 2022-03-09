@@ -26,7 +26,7 @@
                 <ColumnDefinition
                     Width="0.01*" />
                 <ColumnDefinition
-                    Width="*"/>
+                    Width="*" />
             </Grid.ColumnDefinitions>
             <ComboBox
                 Grid.Column="0"
@@ -54,7 +54,7 @@
                 Margin="10,0,0,0"
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
-                CharacterSpacing="110"
+                CharacterSpacing="105"
                 FontSize="16"
                 PlaceholderText="要查询的内容"
                 ItemsSource="{x:Bind Path=DictVM.DictM.QueryAutoList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -95,7 +95,7 @@
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
             AcceptsReturn="True"
-            CharacterSpacing="110"
+            CharacterSpacing="105"
             FontSize="16"
             IsReadOnly="True"
             Visibility="{x:Bind DictVM.DictM.ResultShow,Mode=OneWay}"
