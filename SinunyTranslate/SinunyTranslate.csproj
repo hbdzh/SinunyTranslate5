@@ -132,6 +132,7 @@
     <Compile Include="Model\DictManageModel.cs" />
     <Compile Include="Model\DictModel.cs" />
     <Compile Include="Model\OcrModel.cs" />
+    <Compile Include="Model\SettingModel.cs" />
     <Compile Include="Model\TessdataManageModel.cs" />
     <Compile Include="Model\ToolModel.cs" />
     <Compile Include="Model\TransModel.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="ViewModel\DictManageViewModel.cs" />
     <Compile Include="ViewModel\DictViewModel.cs" />
     <Compile Include="ViewModel\OcrViewModel.cs" />
+    <Compile Include="ViewModel\SettingViewModel.cs" />
     <Compile Include="ViewModel\TessdataManageViewModel.cs" />
     <Compile Include="ViewModel\ToolViewModel.cs" />
     <Compile Include="ViewModel\TransViewModel.cs" />
@@ -163,6 +165,9 @@
     </Compile>
     <Compile Include="View\DictPage.xaml.cs">
       <DependentUpon>DictPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ManagePage.xaml.cs">
+      <DependentUpon>ManagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\OcrPage.xaml.cs">
       <DependentUpon>OcrPage.xaml</DependentUpon>
@@ -259,6 +264,10 @@
     <Page Include="View\DictPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ManagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\OcrPage.xaml">
       <Generator>MSBuild:Compile</Generator>

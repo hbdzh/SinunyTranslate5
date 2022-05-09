@@ -1,5 +1,4 @@
-﻿using SinunyTranslate.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,13 +20,13 @@ namespace SinunyTranslate.View
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class SettingPage : Page
+    public sealed partial class ManagePage : Page
     {
-        internal SettingViewModel SettingVM { get; set; }
-        public SettingPage()
+        public ManagePage()
         {
             this.InitializeComponent();
-            SettingVM = new SettingViewModel();
+            TessdataFrame.Navigate(typeof(TessdataManagePage));
+            DictManageFrame.Navigate(typeof(DictManagePage));
         }
     }
 }

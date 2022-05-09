@@ -11,7 +11,7 @@
     Margin="15,0,0,0">
     <StackPanel>
         <TextBlock
-            Text="词典管理"
+            Text="词典"
             FontSize="16"
             FontWeight="SemiBold"
             Margin="0,0,0,10" />

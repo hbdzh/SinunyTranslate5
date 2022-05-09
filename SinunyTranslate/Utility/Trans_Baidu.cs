@@ -23,9 +23,9 @@ namespace SinunyTranslate.Utility
             sb.Append("q=" + Uri.EscapeDataString(q));
             sb.Append("&from=" + from);
             sb.Append("&to=" + to);
-            sb.Append("&appid=" + ApiSign.BaiduAppid);
+            sb.Append("&appid=" + ApiSign.BaiduAppID);
             sb.Append("&salt=" + ApiSign.Salt);
-            sb.Append("&sign=" + ApiSign.GenerateSign(ApiSign.BaiduAppid, q, ApiSign.Salt, ApiSign.BaiduAppSecret));
+            sb.Append("&sign=" + ApiSign.GenerateSign(ApiSign.BaiduAppID, q, ApiSign.Salt, ApiSign.BaiduAppSecret));
             Uri uri = new Uri(sb.ToString());
             using (HttpClient httpClient = new HttpClient())
             {

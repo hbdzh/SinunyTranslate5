@@ -9,13 +9,13 @@
   <Identity
     Name="eabafdd1-3287-4a4e-a0ca-e3b3e682ac8b"
     Publisher="CN=dzh11"
-    Version="1.0.0.0" />
+    Version="0.15.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="eabafdd1-3287-4a4e-a0ca-e3b3e682ac8b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>SinunyTranslate</DisplayName>
-    <PublisherDisplayName>shaonian</PublisherDisplayName>
+    <PublisherDisplayName>hbdzh</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

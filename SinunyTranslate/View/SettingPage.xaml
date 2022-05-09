@@ -10,13 +10,132 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     Margin="15">
-    <ScrollViewer>
-        <StackPanel>
-            <Frame
-                Name="DictManageFrame" />
-            <Frame
-                Name="TessdataFrame"
-                Margin="0,20,0,0" />
+    <StackPanel>
+        <StackPanel
+            Orientation="Horizontal"
+            Margin="0,0,0,15">
+            <ComboBox
+                Header="主题样式"
+                Width="120"
+                CharacterSpacing="105"
+                Margin="0,0,10,0"
+                ItemsSource="{x:Bind SettingVM.SettingM.ThemeStyle}"
+                SelectedItem="{x:Bind SettingVM.SettingM.UseThemeStyle,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior
+                        EventName="SelectionChanged">
+                        <core:EventTriggerBehavior.Actions>
+                            <core:InvokeCommandAction
+                                Command="{x:Bind Path=SettingVM.ThemeStyleSelectionChangedCommand}" />
+                        </core:EventTriggerBehavior.Actions>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </ComboBox>
+            <ComboBox
+                Header="默认翻译引擎"
+                MinWidth="120"
+                CharacterSpacing="105"
+                ItemsSource="{x:Bind SettingVM.SettingM.TranslateList}"
+                SelectedItem="{x:Bind SettingVM.SettingM.UseTranslateEngine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior
+                        EventName="SelectionChanged">
+                        <core:EventTriggerBehavior.Actions>
+                            <core:InvokeCommandAction
+                                Command="{x:Bind Path=SettingVM.DefaultTranslateEngineSelectionChangedCommand}" />
+                        </core:EventTriggerBehavior.Actions>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </ComboBox>
         </StackPanel>
-    </ScrollViewer>
+        <StackPanel
+            Margin="0,0,0,15">
+            <TextBlock
+                FontSize="16"
+                FontWeight="SemiBold"
+                Margin="0,0,0,10"
+                Text="百度翻译API" />
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBox
+                    Header="APP ID"
+                    CharacterSpacing="105"
+                    Width="250"
+                    Margin="10,0,0,10"
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind SettingVM.SettingM.BaiduAppID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior
+                            EventName="TextChanged">
+                            <core:EventTriggerBehavior.Actions>
+                                <core:InvokeCommandAction
+                                    Command="{x:Bind Path=SettingVM.TranslateApiTextChangedCommand}" />
+                            </core:EventTriggerBehavior.Actions>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </TextBox>
+                <TextBox
+                    Header="密钥"
+                    CharacterSpacing="105"
+                    Margin="10,0,0,10"
+                    Width="250"
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind SettingVM.SettingM.BaiduAppSecret,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior
+                            EventName="TextChanged">
+                            <core:EventTriggerBehavior.Actions>
+                                <core:InvokeCommandAction
+                                    Command="{x:Bind Path=SettingVM.TranslateApiTextChangedCommand}" />
+                            </core:EventTriggerBehavior.Actions>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock
+                FontSize="16"
+                FontWeight="SemiBold"
+                Margin="0,0,0,10"
+                Text="有道翻译API" />
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBox
+                    Header="应用ID"
+                    CharacterSpacing="105"
+                    Margin="10,0,0,10"
+                    Width="250"
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind SettingVM.SettingM.YoudaoAppID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior
+                            EventName="TextChanged">
+                            <core:EventTriggerBehavior.Actions>
+                                <core:InvokeCommandAction
+                                    Command="{x:Bind Path=SettingVM.TranslateApiTextChangedCommand}" />
+                            </core:EventTriggerBehavior.Actions>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </TextBox>
+                <TextBox
+                    Header="应用密钥"
+                    CharacterSpacing="105"
+                    Margin="10,0,0,10"
+                    Width="250"
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind SettingVM.SettingM.YoudaoAppSecret,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior
+                            EventName="TextChanged">
+                            <core:EventTriggerBehavior.Actions>
+                                <core:InvokeCommandAction
+                                    Command="{x:Bind Path=SettingVM.TranslateApiTextChangedCommand}" />
+                            </core:EventTriggerBehavior.Actions>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </TextBox>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
 </Page>

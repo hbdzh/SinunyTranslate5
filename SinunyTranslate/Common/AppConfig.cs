@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Windows.Storage;
+
 namespace SinunyTranslate.Common
 {
     internal class AppConfig
@@ -6,7 +8,26 @@ namespace SinunyTranslate.Common
         /// <summary>
         /// 支持的翻译引擎
         /// </summary>
-        internal static List<string> AllTranslateEngine { get; } = new List<string>() { "有道翻译Free","有道翻译", "百度翻译", "必应词典" };
+        internal static List<string> AllTranslateEngine { get; } = new List<string>() { "有道翻译Free", "有道翻译", "百度翻译", "必应词典" };
+        /// <summary>
+        /// 默认使用的翻译引擎
+        /// </summary>
+        public static string UseTranslateEngine
+        {
+            get
+            {
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                if (localSettings.Values.ContainsKey("DefaultEngine"))
+                {
+                    return (string)localSettings.Values["DefaultEngine"];
+                }
+                else
+                {
+                    return "百度翻译";
+                }
+            }
+
+        }
         /// <summary>
         /// 支持的Ocr引擎
         /// </summary>

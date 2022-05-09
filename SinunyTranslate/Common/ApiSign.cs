@@ -6,10 +6,10 @@ namespace SinunyTranslate.Common
 {
     internal class ApiSign
     {
-        internal static string YoudaoAppid { get; } = "5213dad0ffd72e2c";
-        internal static string YoudaoAppSecret { get; } = "jJLqfCMyAamc2QHGh9O98DIlzb3TuixW";
-        internal static string BaiduAppid { get; } = "20151119000005812";
-        internal static string BaiduAppSecret { get; } = "J6q87ZHMSbU3mocQIlY6";
+        internal static string YoudaoAppID { get; set; }
+        internal static string YoudaoAppSecret { get; set; }
+        internal static string BaiduAppID { get; set; }
+        internal static string BaiduAppSecret { get; set; }
         /// <summary>
         /// 随机数
         /// </summary>

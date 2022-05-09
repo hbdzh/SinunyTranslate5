@@ -23,11 +23,11 @@ namespace SinunyTranslate.View
     /// </summary>
     public sealed partial class TessdataManagePage : Page
     {
-        internal TessdataManageViewModel SettingVM { get; set; }
+        internal TessdataManageViewModel TessdataManageVM { get; set; }
         public TessdataManagePage()
         {
             this.InitializeComponent();
-            SettingVM = new TessdataManageViewModel();
+            TessdataManageVM = new TessdataManageViewModel();
         }
     }
 }

@@ -18,14 +18,14 @@
         <ListView
             Name="LangPackList"
             Margin="0,0,0,10"
-            ItemsSource="{x:Bind SettingVM.SettingM.PackList,Mode=OneWay}"
-            SelectedItem="{x:Bind SettingVM.SettingM.SelectPack,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            ItemsSource="{x:Bind TessdataManageVM.SettingM.PackList,Mode=OneWay}"
+            SelectedItem="{x:Bind TessdataManageVM.SettingM.SelectPack,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
             <interactivity:Interaction.Behaviors>
                 <core:EventTriggerBehavior
                     EventName="DoubleTapped">
                     <core:EventTriggerBehavior.Actions>
                         <core:InvokeCommandAction
-                            Command="{x:Bind Path=SettingVM.PackDoubleTappedCommand}"
+                            Command="{x:Bind Path=TessdataManageVM.PackDoubleTappedCommand}"
                             CommandParameter="{x:Bind Path=downloadProgress}" />
                     </core:EventTriggerBehavior.Actions>
                 </core:EventTriggerBehavior>

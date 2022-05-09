@@ -22,11 +22,11 @@ namespace SinunyTranslate.Utility
             q = q.Replace("\r", Environment.NewLine);//将\r换行符替换成C#能识别的
             StringBuilder sb = new StringBuilder();
             sb.Append("https://openapi.youdao.com/api?");
-            sb.Append("appKey=" + ApiSign.YoudaoAppid);
+            sb.Append("appKey=" + ApiSign.YoudaoAppID);
             sb.Append("&q=" + Uri.EscapeDataString(q));
             sb.Append("&from=" + from);
             sb.Append("&to=" + to);
-            sb.Append("&sign=" + ApiSign.GenerateSign(ApiSign.YoudaoAppid, q, ApiSign.Salt, ApiSign.YoudaoAppSecret));
+            sb.Append("&sign=" + ApiSign.GenerateSign(ApiSign.YoudaoAppID, q, ApiSign.Salt, ApiSign.YoudaoAppSecret));
             sb.Append("&salt=" + ApiSign.Salt);
             Uri uri = new Uri(sb.ToString());
             using (HttpClient httpClient = new HttpClient())

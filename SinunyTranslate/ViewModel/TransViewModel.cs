@@ -24,8 +24,8 @@ namespace SinunyTranslate.ViewModel
                 LanguageList = AppConfig.AllTranslateLanguage,
                 TranEngineList = AppConfig.AllTranslateEngine,
                 SourceLanguage = "自动检测",
-                TargetLanguage = "中文（简体）",
-                UseTranEngine = "有道翻译Free"
+                TargetLanguage = "自动检测",
+                UseTranEngine = AppConfig.UseTranslateEngine
             };
             StartTranslateCommand = new RelayCommand(StartTranslate);
             Tran.ResultShow = Visibility.Collapsed;
