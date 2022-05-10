@@ -1,10 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -26,9 +22,16 @@ namespace SinunyTranslate.Common
         StorageFile sampleFile;
         public BackgroundWorker worker;
         bool isDownloading = false;
-        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        async void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            ContentDialog contentDialog = new ContentDialog
+            {
+                Title = "提示",
+                Content = "Tessearct语言包已下载完成，可以使用了",
+                IsSecondaryButtonEnabled = false,
+                PrimaryButtonText = "确定"
+            };
+            await contentDialog.ShowAsync();
         }
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {

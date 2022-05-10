@@ -64,15 +64,6 @@ namespace SinunyTranslate
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
-                //调整窗口大小
-                ApplicationView.PreferredLaunchViewSize = new Size(950, 650);
-                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-                //自定义TitleBar
-                var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-                ApplicationViewTitleBar appTitleBar = ApplicationView.GetForCurrentView().TitleBar;
-                appTitleBar.ButtonBackgroundColor = Colors.Transparent;
-                appTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                coreTitleBar.ExtendViewIntoTitleBar = true;
             }
         }
 

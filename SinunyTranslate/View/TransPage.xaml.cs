@@ -1,5 +1,6 @@
 ﻿using SinunyTranslate.ViewModel;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -14,7 +15,8 @@ namespace SinunyTranslate.View
         public TransPage()
         {
             this.InitializeComponent();
-            TransVM = new TransViewModel();
+            TransVM = new TransViewModel(); 
+
         }
     }
 }

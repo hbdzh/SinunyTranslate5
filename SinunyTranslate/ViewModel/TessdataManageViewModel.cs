@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
@@ -30,7 +29,7 @@ namespace SinunyTranslate.ViewModel
             SettingM = new TessdataManageModel();
             SettingM.PackList = new List<PackList>();
             PackDoubleTappedCommand = new RelayCommand<object>(new Action<object>(PackDoubleTapped));
-            AppConfig.AllOcrLanguage_Tesseract = new Dictionary<string, string> { { "简体中文", "chi_sim" } };
+            AppConfig.AllOcrLanguage = new Dictionary<string, string> { { "简体中文", "chi_sim" } };
             InitPackList();
         }
         /// <summary>
@@ -47,6 +46,14 @@ namespace SinunyTranslate.ViewModel
             {
                 FileDownload fileDownload = new FileDownload((ProgressBar)process, "https://download.meixiapp.com/SinunyTranslate/5_0_0/LanguagePack/tessdata/packs/" + selectPack + ".traineddata", sampleFile);
                 fileDownload.worker.RunWorkerAsync();
+                ContentDialog contentDialog = new ContentDialog
+                {
+                    Title = "提示",
+                    Content = "在语言包下载完成前，请勿关闭App或在App内进行其他操作，以免出现错误",
+                    IsSecondaryButtonEnabled = false,
+                    PrimaryButtonText = "确定"
+                };
+                await contentDialog.ShowAsync();
             }
             else
             {

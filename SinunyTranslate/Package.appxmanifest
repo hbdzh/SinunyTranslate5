@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="eabafdd1-3287-4a4e-a0ca-e3b3e682ac8b"
-    Publisher="CN=dzh11"
+    Name="35189940C7042.18423AED59E6B"
+    Publisher="CN=031E67DC-51EB-41BA-AEC2-A3521007D83F"
     Version="0.15.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="eabafdd1-3287-4a4e-a0ca-e3b3e682ac8b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="47364469-4a56-4426-9782-e9e4f619911e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>SinunyTranslate</DisplayName>
-    <PublisherDisplayName>hbdzh</PublisherDisplayName>
+    <DisplayName>新云翻译</DisplayName>
+    <PublisherDisplayName>少年</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

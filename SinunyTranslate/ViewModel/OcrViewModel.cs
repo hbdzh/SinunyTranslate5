@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace SinunyTranslate.ViewModel
 {
@@ -33,10 +34,16 @@ namespace SinunyTranslate.ViewModel
             OcrM = new OcrModel
             {
                 OcrEngineList = AppConfig.AllOcrEngine,
-                SelectOcrEngine = "ChineseOcr_Lite"
+                SelectOcrEngine = "PaddleOCR"
             };
             SelectImageCommand = new RelayCommand(SelectImage);
             OcrM.OcrResultShow = Visibility.Collapsed;
+
+            //Paddle引擎初始化一次即可
+            if (Ocr_Paddle.engine == null)
+            {
+                Ocr_Paddle.InitEngine();
+            }
         }
         private async void InitTessdataLanguagePack()
         {
@@ -51,18 +58,22 @@ namespace SinunyTranslate.ViewModel
                 {
                     if (JsonConvert.DeserializeObject(jsonCode) is JObject jo)
                     {
-                        AppConfig.AllOcrLanguage_Tesseract.Add(jo[item.DisplayName].ToString(), item.DisplayName);
+                        //检查Dictionary中有没有这个key
+                        if (!AppConfig.AllOcrLanguage.ContainsKey(jo[item.DisplayName].ToString()))
+                        {
+                            AppConfig.AllOcrLanguage.Add(jo[item.DisplayName].ToString(), item.DisplayName);
+                        }
                     }
                 }
             }
-            OcrM.OcrLanguageList = AppConfig.AllOcrLanguage_Tesseract.Keys.ToList();
+            OcrM.OcrLanguageList = AppConfig.AllOcrLanguage.Keys.ToList();
             OcrM.SelectOcrLang = "简体中文";
         }
         /// <summary>
         /// 下载文件
         /// </summary>
         /// <param name="fileUrl"></param>
-        /// <returns></returns>
+        /// <returns>读取的json</returns>
         internal static async Task<string> DownloadFile(string fileUrl)
         {
             HttpClient httpClient = new HttpClient();
@@ -84,14 +95,12 @@ namespace SinunyTranslate.ViewModel
             string lang;
             switch (OcrM.SelectOcrEngine)
             {
-                case "ChineseOcr_Lite":
-                    Ocr_ChineseOcrLite chineseOcr = new Ocr_ChineseOcrLite();
-                    chineseOcr.EngineInit();
-                    OcrM.ImageText = await chineseOcr.StartEngine();
+                case "PaddleOCR":
+                    Ocr_Paddle paddleOCR = new Ocr_Paddle();
+                    OcrM.ImageText = await paddleOCR.StartEngine();
                     break;
                 case "Tesseract":
-                    lang = AppConfig.AllOcrLanguage_Tesseract[OcrM.SelectOcrLang];
-                    //await StorageFolder.TryGetItemAsync(lang + ".traineddata");
+                    lang = AppConfig.AllOcrLanguage[OcrM.SelectOcrLang];
                     StorageFolder storageFolder = ApplicationData.Current.LocalCacheFolder;
                     StorageFolder packFolder = await storageFolder.CreateFolderAsync("LanguagePack", CreationCollisionOption.OpenIfExists);
                     StorageFolder tessdataFolder = await packFolder.CreateFolderAsync("tessdata", CreationCollisionOption.OpenIfExists);
@@ -101,13 +110,18 @@ namespace SinunyTranslate.ViewModel
                     }
                     else
                     {
-                        Ocr_ChineseOcrLite chineseOcr2 = new Ocr_ChineseOcrLite();
-                        chineseOcr2.EngineInit();
-                        OcrM.ImageText = await chineseOcr2.StartEngine();
+                        ContentDialog contentDialog = new ContentDialog
+                        {
+                            Title = "提示",
+                            Content = "需要安装对应的Tessearct语言包",
+                            IsSecondaryButtonEnabled = false,
+                            PrimaryButtonText = "确定"
+                        };
+                        await contentDialog.ShowAsync();
                     }
                     break;
                 case "WindowsOcr":
-                    lang = AppConfig.AllOcrLanguage_WindowsOcr[OcrM.SelectOcrLang];
+                    lang = AppConfig.WindowsOcrLanguage[OcrM.SelectOcrLang];
                     string[] result = await Ocr_WindowsOcr.ImageOcr(lang);
                     OcrM.ImageText = result[1];
                     break;

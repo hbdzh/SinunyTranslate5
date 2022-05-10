@@ -31,7 +31,7 @@ namespace SinunyTranslate.Common
         /// <summary>
         /// 支持的Ocr引擎
         /// </summary>
-        internal static List<string> AllOcrEngine { get; } = new List<string>() { "ChineseOcr_Lite", "Tesseract", "WindowsOcr" };
+        internal static List<string> AllOcrEngine { get; } = new List<string>() { "PaddleOCR", "Tesseract", "WindowsOcr" };
         /// <summary>
         /// 翻译功能支持的语言
         /// </summary>
@@ -39,10 +39,10 @@ namespace SinunyTranslate.Common
         /// <summary>
         /// TesseractOcr支持的语言
         /// </summary>
-        internal static Dictionary<string, string> AllOcrLanguage_Tesseract { get; set; } = new Dictionary<string, string>() { { "简体中文", "chi_sim" } };
+        internal static Dictionary<string, string> AllOcrLanguage { get; set; } = new Dictionary<string, string>() { { "简体中文", "chi_sim" } };
         /// <summary>
         /// WindowsOcr支持的语言
         /// </summary>
-        internal static Dictionary<string, string> AllOcrLanguage_WindowsOcr { get; } = new Dictionary<string, string>() { { "简体中文", "zh-CN" }, { "繁体中文", "zh-TW" }, { "英语", "en-US" }, { "日语", "ja-JP" }, { "韩语", "ko-KR" } };
+        internal static Dictionary<string, string> WindowsOcrLanguage { get; } = new Dictionary<string, string>() { { "简体中文", "zh-CN" }, { "繁体中文", "zh-TW" }, { "英语", "en-US" }, { "日语", "ja-JP" }, { "韩语", "ko-KR" } };
     }
 }

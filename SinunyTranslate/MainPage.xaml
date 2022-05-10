@@ -25,7 +25,7 @@
                 Text="新云翻译" />
         </Grid>
         <muxc:NavigationView
-            Name="AppNavigation"
+            Name="AppNav"
             Grid.Row="1"
             OpenPaneLength="180"
             CompactPaneLength="50"
@@ -33,7 +33,7 @@
             IsBackButtonVisible="Collapsed"
             IsPaneOpen="False"
             IsSettingsVisible="True"
-            ItemInvoked="AppNavigation_ItemInvoked">
+            ItemInvoked="AppNav_ItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
                     IsSelected="True"
