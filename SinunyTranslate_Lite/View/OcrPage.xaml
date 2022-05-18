@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="SinunyTranslate_Lite.View.OcrPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SinunyTranslate_Lite.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Margin="15">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="auto" />
+            <RowDefinition
+                Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    MinWidth="135"
+                    MaxWidth="205" />
+                <ColumnDefinition
+                    Width="0.1*" />
+                <ColumnDefinition
+                    MinWidth="185"
+                    MaxWidth="215" />
+                <ColumnDefinition
+                    Width="0.1*" />
+                <ColumnDefinition
+                    MinWidth="95"
+                    MaxWidth="125" />
+                <ColumnDefinition 
+                    Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox
+                Grid.Column="0"
+                Margin="5,0,10,0"
+                Height="35"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                ItemsSource="{x:Bind Path=OcrVM.OcrM.OcrLanguageList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{x:Bind Path=OcrVM.OcrM.SelectOcrLang,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox
+                Grid.Column="2"
+                Margin="0,0,10,0"
+                Height="35"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                ItemsSource="{x:Bind Path=OcrVM.OcrM.OcrEngineList}"
+                SelectedItem="{x:Bind Path=OcrVM.OcrM.SelectOcrEngine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+            <Button
+                Grid.Column="4"
+                Margin="0,0,10,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Content="选取图片"
+                Command="{x:Bind Path=OcrVM.SelectImageCommand}" />
+        </Grid>
+        <TextBox
+            Grid.Row="1"
+            Header="识别结果"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Visibility="{x:Bind Path=OcrVM.OcrM.OcrResultShow,Mode=OneWay}"
+            Text="{x:Bind Path=OcrVM.OcrM.ImageText,Mode=OneWay}"
+            Style="{StaticResource DisplayTextBox}">
+            <TextBox.Resources>
+                <SolidColorBrush
+                    x:Key="TextControlBackgroundFocused"
+                    Color="Transparent" />
+                <SolidColorBrush
+                    x:Key="TextControlBackgroundPointerOver"
+                    Color="Transparent" />
+                <SolidColorBrush
+                    x:Key="TextControlBorderBrushFocused"
+                    Color="Transparent" />
+            </TextBox.Resources>
+        </TextBox>
+    </Grid>
+</Page>

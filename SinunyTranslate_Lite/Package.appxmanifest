@@ -11,7 +11,7 @@
     Publisher="CN=031E67DC-51EB-41BA-AEC2-A3521007D83F"
     Version="5.0.17.0" />
 
-  <mp:PhoneIdentity PhoneProductId="47364469-4a56-4426-9782-e9e4f619911e" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="2bc73015-1c23-4623-bfa5-574eb776bf43" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>新云翻译</DisplayName>
@@ -30,15 +30,15 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="SinunyTranslate.App">
+      EntryPoint="SinunyTranslate_Lite.App">
       <uap:VisualElements
         DisplayName="新云翻译"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="SinunyTranslate"
+        Description="SinunyTranslate_Lite"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="新云翻译"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="transparent"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>

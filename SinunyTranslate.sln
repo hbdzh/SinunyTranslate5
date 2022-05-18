@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SinunyTranslate", "SinunyTranslate\SinunyTranslate.csproj", "{B9BFB680-12BD-438C-9CF1-65BD3BEEE356}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SinunyTranslate_Lite", "SinunyTranslate_Lite\SinunyTranslate_Lite.csproj", "{098CF10C-25B7-4DFD-A98D-00847F10F34F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -41,6 +43,30 @@ Global
 		{B9BFB680-12BD-438C-9CF1-65BD3BEEE356}.Release|x86.ActiveCfg = Release|x86
 		{B9BFB680-12BD-438C-9CF1-65BD3BEEE356}.Release|x86.Build.0 = Release|x86
 		{B9BFB680-12BD-438C-9CF1-65BD3BEEE356}.Release|x86.Deploy.0 = Release|x86
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|ARM.Build.0 = Debug|ARM
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|ARM.Deploy.0 = Debug|ARM
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|ARM64.Build.0 = Debug|ARM64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|x64.ActiveCfg = Debug|x64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|x64.Build.0 = Debug|x64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|x64.Deploy.0 = Debug|x64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|x86.ActiveCfg = Debug|x86
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|x86.Build.0 = Debug|x86
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Debug|x86.Deploy.0 = Debug|x86
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|ARM.ActiveCfg = Release|ARM
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|ARM.Build.0 = Release|ARM
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|ARM.Deploy.0 = Release|ARM
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|ARM64.ActiveCfg = Release|ARM64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|ARM64.Build.0 = Release|ARM64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|ARM64.Deploy.0 = Release|ARM64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|x64.ActiveCfg = Release|x64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|x64.Build.0 = Release|x64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|x64.Deploy.0 = Release|x64
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|x86.ActiveCfg = Release|x86
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|x86.Build.0 = Release|x86
+		{098CF10C-25B7-4DFD-A98D-00847F10F34F}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

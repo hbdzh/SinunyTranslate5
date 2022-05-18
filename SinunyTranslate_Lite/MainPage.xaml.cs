@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
-using SinunyTranslate.Common;
-using SinunyTranslate.View;
+using SinunyTranslate_Lite.Common;
+using SinunyTranslate_Lite.View;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Storage;
@@ -8,15 +8,17 @@ using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
-namespace SinunyTranslate
+namespace SinunyTranslate_Lite
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
         public MainPage()
         {
             this.InitializeComponent();
