@@ -31,7 +31,7 @@ namespace SinunyTranslate.Common
         /// <summary>
         /// 支持的Ocr引擎
         /// </summary>
-        internal static List<string> AllOcrEngine { get; } = new List<string>() { "PaddleOCR", "Tesseract", "WindowsOcr" };
+        internal static List<string> AllOcrEngine { get; } = new List<string>() { "PaddleOCR", "ChineseOcr_Lite", "Tesseract", "WindowsOcr" };
         /// <summary>
         /// 翻译功能支持的语言
         /// </summary>

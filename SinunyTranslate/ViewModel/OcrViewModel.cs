@@ -99,6 +99,11 @@ namespace SinunyTranslate.ViewModel
                     Ocr_Paddle paddleOCR = new Ocr_Paddle();
                     OcrM.ImageText = await paddleOCR.StartEngine();
                     break;
+                case "ChineseOcr_Lite":
+                    Ocr_ChineseOcrLite chineseOcr = new Ocr_ChineseOcrLite();
+                    chineseOcr.EngineInit();
+                    OcrM.ImageText = await chineseOcr.StartEngine();
+                    break;
                 case "Tesseract":
                     lang = AppConfig.AllOcrLanguage[OcrM.SelectOcrLang];
                     StorageFolder storageFolder = ApplicationData.Current.LocalCacheFolder;
