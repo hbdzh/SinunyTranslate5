@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace SinunyTranslate_Lite.ViewModel
 {
@@ -89,27 +88,6 @@ namespace SinunyTranslate_Lite.ViewModel
             string lang;
             switch (OcrM.SelectOcrEngine)
             {
-                case "Tesseract":
-                    lang = AppConfig.AllOcrLanguage[OcrM.SelectOcrLang];
-                    StorageFolder storageFolder = ApplicationData.Current.LocalCacheFolder;
-                    StorageFolder packFolder = await storageFolder.CreateFolderAsync("LanguagePack", CreationCollisionOption.OpenIfExists);
-                    StorageFolder tessdataFolder = await packFolder.CreateFolderAsync("tessdata", CreationCollisionOption.OpenIfExists);
-                    if (await tessdataFolder.TryGetItemAsync(lang + ".traineddata") != null)
-                    {
-                        OcrM.ImageText = await Ocr_Tesseract.StreamToText(lang);
-                    }
-                    else
-                    {
-                        ContentDialog contentDialog = new ContentDialog
-                        {
-                            Title = "提示",
-                            Content = "需要安装对应的Tessearct语言包",
-                            IsSecondaryButtonEnabled = false,
-                            PrimaryButtonText = "确定"
-                        };
-                        await contentDialog.ShowAsync();
-                    }
-                    break;
                 case "WindowsOcr":
                     lang = AppConfig.WindowsOcrLanguage[OcrM.SelectOcrLang];
                     string[] result = await Ocr_WindowsOcr.ImageOcr(lang);

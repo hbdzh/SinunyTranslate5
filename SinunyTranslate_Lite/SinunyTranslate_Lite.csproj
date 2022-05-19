@@ -138,7 +138,6 @@
     <Compile Include="Model\DictModel.cs" />
     <Compile Include="Model\OcrModel.cs" />
     <Compile Include="Model\SettingModel.cs" />
-    <Compile Include="Model\TessdataManageModel.cs" />
     <Compile Include="Model\ToolModel.cs" />
     <Compile Include="Model\TransModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,7 +146,6 @@
     <Compile Include="Utility\Auxiliary\MassConverter.cs" />
     <Compile Include="Utility\Auxiliary\QueryApi.cs" />
     <Compile Include="Utility\Auxiliary\TimeConverter.cs" />
-    <Compile Include="Utility\Ocr_Tesseract.cs" />
     <Compile Include="Utility\Ocr_WindowsOcr.cs" />
     <Compile Include="Utility\Trans_Baidu.cs" />
     <Compile Include="Utility\Trans_Bing.cs" />
@@ -157,7 +155,6 @@
     <Compile Include="ViewModel\DictViewModel.cs" />
     <Compile Include="ViewModel\OcrViewModel.cs" />
     <Compile Include="ViewModel\SettingViewModel.cs" />
-    <Compile Include="ViewModel\TessdataManageViewModel.cs" />
     <Compile Include="ViewModel\ToolViewModel.cs" />
     <Compile Include="ViewModel\TransViewModel.cs" />
     <Compile Include="View\DictManagePage.xaml.cs">
@@ -174,9 +171,6 @@
     </Compile>
     <Compile Include="View\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TessdataManagePage.xaml.cs">
-      <DependentUpon>TessdataManagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ToolPage.xaml.cs">
       <DependentUpon>ToolPage.xaml</DependentUpon>
@@ -274,10 +268,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\TessdataManagePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\ToolPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -308,9 +298,6 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Tesseract">
-      <Version>4.1.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

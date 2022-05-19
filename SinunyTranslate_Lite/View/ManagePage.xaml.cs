@@ -25,7 +25,6 @@ namespace SinunyTranslate_Lite.View
         public ManagePage()
         {
             this.InitializeComponent();
-            TessdataFrame.Navigate(typeof(TessdataManagePage));
             DictManageFrame.Navigate(typeof(DictManagePage));
         }
     }
