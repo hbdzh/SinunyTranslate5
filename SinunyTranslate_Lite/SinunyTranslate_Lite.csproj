@@ -130,6 +130,7 @@
     <Compile Include="Common\AppConfig.cs" />
     <Compile Include="Common\DetectLanguage.cs" />
     <Compile Include="Common\FileDownload.cs" />
+    <Compile Include="Common\JudgeText.cs" />
     <Compile Include="Common\TransCodeConvert.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -278,6 +279,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.11.42</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>

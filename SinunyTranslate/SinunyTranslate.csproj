@@ -139,6 +139,7 @@
     <Compile Include="Common\AppConfig.cs" />
     <Compile Include="Common\DetectLanguage.cs" />
     <Compile Include="Common\FileDownload.cs" />
+    <Compile Include="Common\JudgeText.cs" />
     <Compile Include="Common\TransCodeConvert.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -326,6 +327,9 @@
     </PackageReference>
     <PackageReference Include="Emgu.CV.runtime.windows">
       <Version>4.5.5.4823</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.11.42</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ML.OnnxRuntime.Managed">
       <Version>1.11.0</Version>

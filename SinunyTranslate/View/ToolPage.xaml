@@ -240,6 +240,7 @@
                 <Button
                     Margin="0,0,10,0"
                     Content="ARGB转十六进制"
+                    ToolTipService.ToolTip="支持RGB，数字间请用 , 分割"
                     Command="{x:Bind Path=ToolVM.ArgbToHexCommand}" />
                 <Button
                     Margin="0,0,10,0"

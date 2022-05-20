@@ -7,6 +7,8 @@ using Microsoft.Toolkit.Uwp.Helpers;
 using System.Globalization;
 using System;
 using SinunyTranslate.Utility.Auxiliary;
+using Windows.UI.Xaml.Controls;
+using SinunyTranslate.Common;
 
 namespace SinunyTranslate.ViewModel
 {
@@ -46,93 +48,110 @@ namespace SinunyTranslate.ViewModel
         /// <summary>
         /// 查询近义词
         /// </summary>
-        public async void QueryJinyi()
+        public void QueryJinyi()
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsChinese(ToolBoxM.QueryContent))
-                {
-                    string jsonCode = await QueryApi.GetJson("http://api.jisuapi.com/jinyifanyi/word?appkey=57f22dc38f471349&word=", ToolBoxM.QueryContent);
-                    ToolBoxM.QueryResult = QueryApi.JinyiQuery(jsonCode);
-                    ToolBoxM.ResultShow = Visibility.Visible;
-                }
+                ToolBoxM.QueryResult = QueryApi.JinyiQuery(ToolBoxM.QueryContent);
+                ToolBoxM.ResultShow = Visibility.Visible;
             }
         }
         /// <summary>
         /// 查询反义词
         /// </summary>
-        public async void QueryFanyi()
+        public void QueryFanyi()
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsChinese(ToolBoxM.QueryContent))
-                {
-                    string jsonCode = await QueryApi.GetJson("http://api.jisuapi.com/jinyifanyi/word?appkey=57f22dc38f471349&word=", ToolBoxM.QueryContent);
-                    ToolBoxM.QueryResult = QueryApi.FanyiQuery(jsonCode);
-                    ToolBoxM.ResultShow = Visibility.Visible;
-                }
+                ToolBoxM.QueryResult = QueryApi.FanyiQuery(ToolBoxM.QueryContent);
+                ToolBoxM.ResultShow = Visibility.Visible;
             }
         }
         /// <summary>
         /// 查询词语
         /// </summary>
-        public async void QueryWords()
+        public void QueryWords()
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsChinese(ToolBoxM.QueryContent))
-                {
-                    string jsonCode = await QueryApi.GetJson("http://api.tianapi.com/txapi/lexicon/index?key=5a08864eba64801f1d2d2336db119e9b&word=", ToolBoxM.QueryContent);
-                    ToolBoxM.QueryResult = QueryApi.WordsQuery(jsonCode);
-                    ToolBoxM.ResultShow = Visibility.Visible;
-                }
+                ToolBoxM.QueryResult = QueryApi.WordsQuery(ToolBoxM.QueryContent);
+                ToolBoxM.ResultShow = Visibility.Visible;
             }
         }
         /// <summary>
         /// 查询成语
         /// </summary>
-        public async void QueryIdioms()
+        public void QueryIdioms()
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsChinese(ToolBoxM.QueryContent))
-                {
-                    string jsonCode = await QueryApi.GetJson("http://api.tianapi.com/chengyu/index?key=5a08864eba64801f1d2d2336db119e9b&word=", ToolBoxM.QueryContent);
-                    ToolBoxM.QueryResult = QueryApi.IdiomsQuery(jsonCode);
-                    ToolBoxM.ResultShow = Visibility.Visible;
-                }
+                ToolBoxM.QueryResult = QueryApi.IdiomsQuery(ToolBoxM.QueryContent);
+                ToolBoxM.ResultShow = Visibility.Visible;
             }
         }
         /// <summary>
         /// ARGB转十六进制
         /// </summary>
-        public void ArgbToHex()
+        public async void ArgbToHex()
         {
-            if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
+            try
             {
-                string[] getAry = ToolBoxM.QueryContent.Split(',');//单个字符分割
-                if (getAry.Length > 4)//是ARGB
+                if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
                 {
-                    Windows.UI.Color color = Windows.UI.Color.FromArgb(byte.Parse(getAry[0]), byte.Parse(getAry[1]), byte.Parse(getAry[2]), byte.Parse(getAry[3]));
-                    ToolBoxM.QueryResult = ColorHelper.ToHex(color);
+                    string[] getAry = ToolBoxM.QueryContent.Replace('，', ',').Split(',');//单个字符分割
+                    if (getAry.Length == 4)//是ARGB
+                    {
+                        Windows.UI.Color color = Windows.UI.Color.FromArgb(byte.Parse(getAry[0]), byte.Parse(getAry[1]), byte.Parse(getAry[2]), byte.Parse(getAry[3]));
+                        ToolBoxM.QueryResult = ColorHelper.ToHex(color);
+                    }
+                    else if (getAry.Length == 3)//是RGB
+                    {
+                        Windows.UI.Color color = Windows.UI.Color.FromArgb(255, byte.Parse(getAry[0]), byte.Parse(getAry[1]), byte.Parse(getAry[2]));
+                        ToolBoxM.QueryResult = ColorHelper.ToHex(color).Remove(1, 2);
+                    }
                     ToolBoxM.ResultShow = Visibility.Visible;
                 }
             }
+            catch
+            {
+                ContentDialog contentDialog = new ContentDialog
+                {
+                    Title = "注意",
+                    Content = "可能存在无效值",
+                    IsSecondaryButtonEnabled = false,
+                    PrimaryButtonText = "确定"
+                };
+                await contentDialog.ShowAsync();
+            }
         }
         /// <summary>
-        /// 十六进制转RGB
+        /// 十六进制转ARGB
         /// </summary>
-        public void HexToArgb()
+        public async void HexToArgb()
         {
-            if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
+            try
             {
-                int argb = int.Parse(ToolBoxM.QueryContent.Replace("#", ""), NumberStyles.HexNumber);
-                Windows.UI.Color color = Windows.UI.Color.FromArgb((byte)((argb & -16777216) >> 0x18),
-                                      (byte)((argb & 0xff0000) >> 0x10),
-                                      (byte)((argb & 0xff00) >> 8),
-                                      (byte)(argb & 0xff));
-                ToolBoxM.QueryResult = color.A + "," + color.R + "," + color.G + "," + color.B;
-                ToolBoxM.ResultShow = Visibility.Visible;
+                if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
+                {
+                    int argb = int.Parse(ToolBoxM.QueryContent.Replace("#", ""), NumberStyles.HexNumber);
+                    Windows.UI.Color color = Windows.UI.Color.FromArgb((byte)((argb & -16777216) >> 0x18),
+                                          (byte)((argb & 0xff0000) >> 0x10),
+                                          (byte)((argb & 0xff00) >> 8),
+                                          (byte)(argb & 0xff));
+                    ToolBoxM.QueryResult = color.A + "," + color.R + "," + color.G + "," + color.B;
+                    ToolBoxM.ResultShow = Visibility.Visible;
+                }
+            }
+            catch
+            {
+                ContentDialog contentDialog = new ContentDialog
+                {
+                    Title = "注意",
+                    Content = "可能存在无效值",
+                    IsSecondaryButtonEnabled = false,
+                    PrimaryButtonText = "确定"
+                };
+                await contentDialog.ShowAsync();
             }
         }
         /// <summary>
@@ -142,36 +161,31 @@ namespace SinunyTranslate.ViewModel
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsNumber(ToolBoxM.QueryContent))
+                if (JudgeText.IsNumber(ToolBoxM.QueryContent))
                 {
                     double length = double.Parse(ToolBoxM.QueryContent);
                     switch (unit)
                     {
                         case "毫米":
                             ToolBoxM.QueryResult = LengthConverter.FromMillimeter(length).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "厘米":
                             ToolBoxM.QueryResult = LengthConverter.FromCentimeter(length).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "分米":
                             ToolBoxM.QueryResult = LengthConverter.FromDecimeter(length).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "米":
                             ToolBoxM.QueryResult = LengthConverter.FromMeter(length).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "千米":
                             ToolBoxM.QueryResult = LengthConverter.FromKilometer(length).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "英寸":
                             ToolBoxM.QueryResult = LengthConverter.FromInch(length).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                     }
+                    ToolBoxM.ResultShow = Visibility.Visible;
                 }
             }
         }
@@ -183,36 +197,31 @@ namespace SinunyTranslate.ViewModel
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsNumber(ToolBoxM.QueryContent))
+                if (JudgeText.IsNumber(ToolBoxM.QueryContent))
                 {
                     double area = double.Parse(ToolBoxM.QueryContent);
                     switch (unit)
                     {
                         case "平方毫米":
                             ToolBoxM.QueryResult = AreaConverter.FromSquareMillimeter(area).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "平方厘米":
                             ToolBoxM.QueryResult = AreaConverter.FromSquareCentimeter(area).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "平方分米":
                             ToolBoxM.QueryResult = AreaConverter.FromSquareDecimeter(area).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "平方米":
                             ToolBoxM.QueryResult = AreaConverter.FromSquareMeter(area).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "平方千米":
                             ToolBoxM.QueryResult = AreaConverter.FromSquareKilometer(area).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "亩":
                             ToolBoxM.QueryResult = AreaConverter.FromMu(area).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                     }
+                    ToolBoxM.ResultShow = Visibility.Visible;
                 }
             }
         }
@@ -224,44 +233,37 @@ namespace SinunyTranslate.ViewModel
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsNumber(ToolBoxM.QueryContent))
+                if (JudgeText.IsNumber(ToolBoxM.QueryContent))
                 {
                     double mass = double.Parse(ToolBoxM.QueryContent);
                     switch (unit)
                     {
                         case "吨":
                             ToolBoxM.QueryResult = MassConverter.FromTon(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "千克":
                             ToolBoxM.QueryResult = MassConverter.FromKilogram(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "克":
                             ToolBoxM.QueryResult = MassConverter.FromGram(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "毫克":
                             ToolBoxM.QueryResult = MassConverter.FromMilligram(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "担":
                             ToolBoxM.QueryResult = MassConverter.FromDan(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "斤":
                             ToolBoxM.QueryResult = MassConverter.FromJin(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "两":
                             ToolBoxM.QueryResult = MassConverter.FromLiang(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "钱":
                             ToolBoxM.QueryResult = MassConverter.FromQian(mass).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                     }
+                    ToolBoxM.ResultShow = Visibility.Visible;
                 }
             }
         }
@@ -273,80 +275,39 @@ namespace SinunyTranslate.ViewModel
         {
             if (!string.IsNullOrEmpty(ToolBoxM.QueryContent))
             {
-                if (IsNumber(ToolBoxM.QueryContent))
+                if (JudgeText.IsNumber(ToolBoxM.QueryContent))
                 {
                     double time = double.Parse(ToolBoxM.QueryContent);
                     switch (unit)
                     {
                         case "年":
                             ToolBoxM.QueryResult = TimeConverter.FromYear(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "月":
                             ToolBoxM.QueryResult = TimeConverter.FromMonth(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "周":
                             ToolBoxM.QueryResult = TimeConverter.FromWeek(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "天":
                             ToolBoxM.QueryResult = TimeConverter.FromDay(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "小时":
                             ToolBoxM.QueryResult = TimeConverter.FromHour(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "分钟":
                             ToolBoxM.QueryResult = TimeConverter.FromMinute(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "秒钟":
                             ToolBoxM.QueryResult = TimeConverter.FromSecond(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                         case "毫秒":
                             ToolBoxM.QueryResult = TimeConverter.FromMillisecond(time).ToString();
-                            ToolBoxM.ResultShow = Visibility.Visible;
                             break;
                     }
+                    ToolBoxM.ResultShow = Visibility.Visible;
                 }
             }
-        }
-        /// <summary>
-        /// 判断输入是否为数字
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        private bool IsNumber(string str)
-        {
-            foreach (char c in str)
-            {
-                if (c < '0' || c > '9')
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        /// <summary>
-        /// 用Unicode编码范围判断是不是汉字
-        /// </summary>
-        /// <param name="text">字符串</param>
-        /// <returns>true是汉字，false不是汉字</returns>
-        private bool IsChinese(string str)
-        {
-            bool b = false;
-            foreach (char c in str)
-            {
-                if (c >= 0x4e00 && c <= 0x9fbb)
-                {
-                    b = true;
-                    break;
-                }
-            }
-            return b;
         }
     }
 }
