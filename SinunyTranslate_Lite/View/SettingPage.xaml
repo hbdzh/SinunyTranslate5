@@ -49,7 +49,7 @@
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
             <ComboBox
-                Header="延时翻译时长"
+                Header="延时翻译时长（秒）"
                 MinWidth="120"
                 CharacterSpacing="105"
                 Margin="0,0,10,0"

@@ -7,15 +7,17 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
-using Windows.Storage;
+using Windows.Media.SpeechSynthesis;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace SinunyTranslate_Lite.ViewModel
 {
     internal class TransViewModel : ObservableObject
     {
         public ICommand StartTranslateCommand { get; set; }
+        public ICommand PlayAudioCommand { get; set; }
         private TransModel tran;
         public TransModel Tran
         {
@@ -33,14 +35,47 @@ namespace SinunyTranslate_Lite.ViewModel
                 UseTranEngine = AppConfig.UseTranslateEngine
             };
             StartTranslateCommand = new RelayCommand(StartTranslate);
+            PlayAudioCommand = new RelayCommand<object>(new Action<object>(PlayAudio));
             Tran.ResultShow = Visibility.Collapsed;
             Tran.ExplainsShow = Visibility.Collapsed;
             Tran.WebShow = Visibility.Collapsed;
         }
         /// <summary>
+        /// 语音朗读
+        /// </summary>
+        /// <param name="status"></param>
+        private async void PlayAudio(object status)
+        {
+            MediaElement audioPlayer = (MediaElement)status;
+            audioPlayer.MediaEnded += AudioPlayer_MediaEnded;
+            using (SpeechSynthesizer synthesizer = new SpeechSynthesizer())
+            {
+                if (Tran.IsAudioPlaying == true)
+                {
+                    SpeechSynthesisStream stream = await synthesizer.SynthesizeTextToStreamAsync(Tran.TranslateResult);
+                    // 播放生成的语音
+                    audioPlayer.SetSource(stream, stream.ContentType);
+                }
+                else
+                {
+                    audioPlayer.Stop();
+                }
+            }
+        }
+        /// <summary>
+        /// 朗读完成后
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AudioPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            Tran.IsAudioPlaying = false;
+        }
+
+        /// <summary>
         /// 开始翻译
         /// </summary>
-        public void StartTranslate()
+        private void StartTranslate()
         {
             Task.Run(async delegate
             {
@@ -51,6 +86,9 @@ namespace SinunyTranslate_Lite.ViewModel
                 });
             });
         }
+        /// <summary>
+        /// 翻译
+        /// </summary>
         private async void Translate()
         {
             if (!string.IsNullOrEmpty(Tran.SourceLanguage) && !string.IsNullOrEmpty(Tran.TargetLanguage) && !string.IsNullOrEmpty(Tran.UseTranEngine) && !string.IsNullOrEmpty(Tran.TranslateContent))
@@ -90,7 +128,7 @@ namespace SinunyTranslate_Lite.ViewModel
             string jsonCode;
             switch (Tran.UseTranEngine)
             {
-                case "有道翻译Free":
+                case "有道翻译（免费版）":
                     string type = TransCodeConvert.YoudaoFreeLanguageConvert(Tran.SourceLanguage) + "2" + TransCodeConvert.YoudaoFreeLanguageConvert(Tran.TargetLanguage);
                     if (type.Contains("ERROR"))
                     {

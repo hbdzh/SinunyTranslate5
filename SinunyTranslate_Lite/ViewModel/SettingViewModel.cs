@@ -84,6 +84,10 @@ namespace SinunyTranslate_Lite.ViewModel
             {
                 SettingM.NavMode = AppConfig.UseNavMode;
             }
+            else
+            {
+                SettingM.NavMode = NavigationViewPaneDisplayMode.Left;
+            }
         }
         private void InitSetting()
         {

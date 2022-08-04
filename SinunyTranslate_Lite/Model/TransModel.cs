@@ -114,5 +114,14 @@ namespace SinunyTranslate_Lite.Model
             get => webShow;
             set => SetProperty(ref webShow, value);
         }
+        private bool isAudioPlaying;
+        /// <summary>
+        /// 是否正在播放声音
+        /// </summary>
+        public bool IsAudioPlaying
+        {
+            get => isAudioPlaying;
+            set => SetProperty(ref isAudioPlaying, value);
+        }
     }
 }

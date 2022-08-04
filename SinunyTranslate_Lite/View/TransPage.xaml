@@ -135,27 +135,55 @@
                         x:Key="TextControlBorderBrushFocused"
                         Color="Transparent" />
                 </StackPanel.Resources>
-                <TextBox
+                <StackPanel
                     Margin="5,10,0,0"
-                    Header="翻译"
-                    Visibility="{x:Bind Path=TransVM.Tran.ResultShow,Mode=OneWay}"
-                    Text="{x:Bind Path=TransVM.Tran.TranslateResult,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                    Style="{StaticResource DisplayTextBox}">
-                </TextBox>
+                    Orientation="Horizontal"
+                    Visibility="{x:Bind Path=TransVM.Tran.ResultShow,Mode=OneWay}">
+                    <TextBox
+                        Header="翻译"
+                        Text="{x:Bind Path=TransVM.Tran.TranslateResult,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource DisplayTextBox}" />
+                    <ToggleButton
+                        Margin="-30,0,0,0"
+                        ToolTipService.ToolTip="语音朗读"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        IsChecked="{x:Bind TransVM.Tran.IsAudioPlaying,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        <ToggleButton.Content>
+                            <FontIcon
+                                Glyph="&#xe767;"
+                                FontSize="15" />
+                        </ToggleButton.Content>
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior
+                                EventName="Click">
+                                <core:EventTriggerBehavior.Actions>
+                                    <core:InvokeCommandAction
+                                        Command="{x:Bind Path=TransVM.PlayAudioCommand}"
+                                        CommandParameter="{x:Bind Path=AudioPlayer,Mode=OneWay}" />
+                                </core:EventTriggerBehavior.Actions>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </ToggleButton>
+                    <MediaElement
+                        Volume="1.0"
+                        AutoPlay="True"
+                        Name="AudioPlayer" />
+                </StackPanel>
                 <TextBox
                     Margin="5,10,0,0"
                     Header="解释"
                     Visibility="{x:Bind Path=TransVM.Tran.ExplainsShow,Mode=OneWay}"
                     Text="{x:Bind Path=TransVM.Tran.TranslateExplains,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                    Style="{StaticResource DisplayTextBox}">
-                </TextBox>
+                    Style="{StaticResource DisplayTextBox}" />
                 <TextBox
                     Margin="5,0,0,0"
                     Header="网络释义"
                     Visibility="{x:Bind Path=TransVM.Tran.WebShow,Mode=OneWay}"
                     Text="{x:Bind Path=TransVM.Tran.TranslateWeb,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                    Style="{StaticResource DisplayTextBox}">
-                </TextBox>
+                    Style="{StaticResource DisplayTextBox}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

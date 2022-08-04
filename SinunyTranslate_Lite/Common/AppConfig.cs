@@ -9,7 +9,7 @@ namespace SinunyTranslate_Lite.Common
         /// <summary>
         /// 支持的翻译引擎
         /// </summary>
-        internal static List<string> AllTranslateEngine { get; } = new List<string>() { "有道翻译Free", "有道翻译", "百度翻译", "必应词典" };
+        internal static List<string> AllTranslateEngine { get; } = new List<string>() { "有道翻译（免费版）", "有道翻译", "百度翻译", "必应词典" };
         /// <summary>
         /// 默认使用的翻译引擎
         /// </summary>
