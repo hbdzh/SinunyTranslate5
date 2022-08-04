@@ -20,10 +20,10 @@
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="Transparent">
-            <TextBlock
-                x:Name="TitleBar"
-                Text="新云翻译" />
         </Grid>
+        <TextBlock
+            x:Name="TitleBar"
+            Text="新云翻译" />
         <muxc:NavigationView
             Name="AppNav"
             Grid.Row="1"

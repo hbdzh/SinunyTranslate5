@@ -18,11 +18,18 @@ namespace SinunyTranslate_Lite
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         public MainPage()
         {
             this.InitializeComponent();
+            InitTitleBar();
+            LoadThemeStyle();
+            LoadNavMode();
+            LoadApiInfo();
+            ContentFrame.Navigate(typeof(TransPage));
+        }
 
+        private void InitTitleBar()
+        {
             //调整窗口大小
             ApplicationView.PreferredLaunchViewSize = new Size(950, 650);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
@@ -37,16 +44,13 @@ namespace SinunyTranslate_Lite
 
             // Set XAML element as a draggable region.
             Window.Current.SetTitleBar(AppTitleBar);
-
-            LoadThemeStyle();
-            LoadSetting();
-            ContentFrame.Navigate(typeof(TransPage));
         }
+
         private void UpdateTitleBarLayout()
         {
             // Get the size of the caption controls area and back button 
             // (returned in logical pixels), and move your content around as necessary.
-            TitleBar.Margin = new Thickness(15, 15, 0, 10);
+            TitleBar.Margin = new Thickness(15, 10, 0, 5);
         }
 
         private void AppNav_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
@@ -78,14 +82,19 @@ namespace SinunyTranslate_Lite
                         break;
                 }
             }
-            SaveSetting();
+            SaveApiInfo();
             LoadThemeStyle();
+            LoadNavMode();
         }
         ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+        private void LoadNavMode()
+        {
+            AppNav.PaneDisplayMode = AppConfig.UseNavMode;
+        }
         /// <summary>
         /// 加载App的设置
         /// </summary>
-        private void LoadSetting()
+        private void LoadApiInfo()
         {
             ApiSign.YoudaoAppID = (string)localSettings.Values["YoudaoAppID"];
             ApiSign.YoudaoAppSecret = (string)localSettings.Values["YoudaoAppSecret"];
@@ -95,7 +104,7 @@ namespace SinunyTranslate_Lite
         /// <summary>
         /// 保存App设置
         /// </summary>
-        private void SaveSetting()
+        private void SaveApiInfo()
         {
             localSettings.Values["YoudaoAppID"] = ApiSign.YoudaoAppID;
             localSettings.Values["YoudaoAppSecret"] = ApiSign.YoudaoAppSecret;

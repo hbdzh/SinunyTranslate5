@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.UI.Xaml.Controls;
+using System.Collections.Generic;
 using Windows.Storage;
 
 namespace SinunyTranslate_Lite.Common
@@ -24,6 +25,60 @@ namespace SinunyTranslate_Lite.Common
                 else
                 {
                     return "百度翻译";
+                }
+            }
+        }
+        /// <summary>
+        /// 使用的延时翻译时长
+        /// </summary>
+        public static int UseDelayTime
+        {
+            get
+            {
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                if (localSettings.Values.ContainsKey("DelayTime"))
+                {
+                    double delay = (double)ApplicationData.Current.LocalSettings.Values["DelayTime"] * 1000;
+                    return (int)delay;
+                }
+                else
+                {
+                    return 500;
+                }
+            }
+        }
+        /// <summary>
+        /// 导航栏模式
+        /// </summary>
+        public static NavigationViewPaneDisplayMode UseNavMode
+        {
+            get
+            {
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                if (localSettings.Values.ContainsKey("NavMode"))
+                {
+                    NavigationViewPaneDisplayMode mode;
+                    if ((string)ApplicationData.Current.LocalSettings.Values["NavMode"] == "Top")
+                    {
+                        mode = NavigationViewPaneDisplayMode.Top;
+                    }
+                    else if ((string)ApplicationData.Current.LocalSettings.Values["NavMode"] == "LeftCompact")
+                    {
+                        mode = NavigationViewPaneDisplayMode.LeftCompact;
+                    }
+                    else if ((string)ApplicationData.Current.LocalSettings.Values["NavMode"] == "LeftMinimal")
+                    {
+                        mode = NavigationViewPaneDisplayMode.LeftMinimal;
+                    }
+                    else
+                    {
+                        mode = NavigationViewPaneDisplayMode.Left;
+                    }
+                    return mode;
+                }
+                else
+                {
+                    return NavigationViewPaneDisplayMode.Left;
                 }
             }
 

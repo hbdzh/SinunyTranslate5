@@ -1,4 +1,5 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 
 namespace SinunyTranslate_Lite.Model
@@ -52,6 +53,30 @@ namespace SinunyTranslate_Lite.Model
         {
             get => youdaoAppSecret;
             set => SetProperty(ref youdaoAppSecret, value);
+        }
+        private List<double> delayTimeList;
+        public List<double> DelayTimeList
+        {
+            get => delayTimeList;
+            set => SetProperty(ref delayTimeList, value);
+        }
+        private double delayTime;
+        public double DelayTime
+        {
+            get => delayTime;
+            set => SetProperty(ref delayTime, value);
+        }
+        private List<NavigationViewPaneDisplayMode> navModeList;
+        public List<NavigationViewPaneDisplayMode> NavModeList
+        {
+            get => navModeList;
+            set => SetProperty(ref navModeList, value);
+        }
+        private NavigationViewPaneDisplayMode navMode;
+        public NavigationViewPaneDisplayMode NavMode
+        {
+            get => navMode;
+            set => SetProperty(ref navMode, value);
         }
     }
 }

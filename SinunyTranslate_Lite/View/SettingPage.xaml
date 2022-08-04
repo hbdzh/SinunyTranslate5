@@ -35,6 +35,7 @@
                 Header="默认翻译引擎"
                 MinWidth="120"
                 CharacterSpacing="105"
+                Margin="0,0,10,0"
                 ItemsSource="{x:Bind SettingVM.SettingM.TranslateList}"
                 SelectedItem="{x:Bind SettingVM.SettingM.UseTranslateEngine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                 <interactivity:Interaction.Behaviors>
@@ -43,6 +44,39 @@
                         <core:EventTriggerBehavior.Actions>
                             <core:InvokeCommandAction
                                 Command="{x:Bind Path=SettingVM.DefaultTranslateEngineSelectionChangedCommand}" />
+                        </core:EventTriggerBehavior.Actions>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </ComboBox>
+            <ComboBox
+                Header="延时翻译时长"
+                MinWidth="120"
+                CharacterSpacing="105"
+                Margin="0,0,10,0"
+                ItemsSource="{x:Bind SettingVM.SettingM.DelayTimeList}"
+                SelectedItem="{x:Bind SettingVM.SettingM.DelayTime,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior
+                        EventName="SelectionChanged">
+                        <core:EventTriggerBehavior.Actions>
+                            <core:InvokeCommandAction
+                                Command="{x:Bind Path=SettingVM.DelayTimeSelectionChangedCommand}" />
+                        </core:EventTriggerBehavior.Actions>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </ComboBox>
+            <ComboBox
+                Header="导航栏模式"
+                MinWidth="120"
+                CharacterSpacing="105"
+                ItemsSource="{x:Bind SettingVM.SettingM.NavModeList}"
+                SelectedItem="{x:Bind SettingVM.SettingM.NavMode,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior
+                        EventName="SelectionChanged">
+                        <core:EventTriggerBehavior.Actions>
+                            <core:InvokeCommandAction
+                                Command="{x:Bind Path=SettingVM.NavModeSelectionChangedCommand}" />
                         </core:EventTriggerBehavior.Actions>
                     </core:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
