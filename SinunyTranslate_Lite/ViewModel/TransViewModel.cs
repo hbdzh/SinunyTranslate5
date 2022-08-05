@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel.Core;
+using Windows.Media.SpeechRecognition;
 using Windows.Media.SpeechSynthesis;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -18,6 +19,8 @@ namespace SinunyTranslate_Lite.ViewModel
     {
         public ICommand StartTranslateCommand { get; set; }
         public ICommand PlayAudioCommand { get; set; }
+        public ICommand AudioPlayer_MediaEndedCommand { get; set; }
+        public ICommand VoiceInputCommand { get; set; }
         private TransModel tran;
         public TransModel Tran
         {
@@ -36,9 +39,37 @@ namespace SinunyTranslate_Lite.ViewModel
             };
             StartTranslateCommand = new RelayCommand(StartTranslate);
             PlayAudioCommand = new RelayCommand<object>(new Action<object>(PlayAudio));
+            AudioPlayer_MediaEndedCommand = new RelayCommand(AudioPlayer_MediaEnded);
+            VoiceInputCommand = new RelayCommand(VoiceInput);
             Tran.ResultShow = Visibility.Collapsed;
             Tran.ExplainsShow = Visibility.Collapsed;
             Tran.WebShow = Visibility.Collapsed;
+        }
+        /// <summary>
+        /// 语音输入
+        /// </summary>
+        private async void VoiceInput()
+        {
+            if (Tran.IsSpeechRecognition == true)
+            {
+                using (SpeechRecognizer recognizer = new SpeechRecognizer())
+                {
+                    SpeechRecognitionCompilationResult compilationResult = await recognizer.CompileConstraintsAsync();
+                    if (compilationResult.Status == SpeechRecognitionResultStatus.Success)
+                    {
+                        recognizer.UIOptions.IsReadBackEnabled = false;
+                        recognizer.UIOptions.ShowConfirmation = true;
+                        recognizer.UIOptions.AudiblePrompt = "我在听，请说...";
+                        recognizer.Timeouts.InitialSilenceTimeout = TimeSpan.FromSeconds(1);
+                        SpeechRecognitionResult recognitionResult = await recognizer.RecognizeWithUIAsync();
+                        if (recognitionResult.Status == SpeechRecognitionResultStatus.Success)
+                        {
+                            Tran.TranslateContent = recognitionResult.Text;
+                        }
+                    }
+                    Tran.IsSpeechRecognition = false;
+                }
+            }
         }
         /// <summary>
         /// 语音朗读
@@ -47,7 +78,6 @@ namespace SinunyTranslate_Lite.ViewModel
         private async void PlayAudio(object status)
         {
             MediaElement audioPlayer = (MediaElement)status;
-            audioPlayer.MediaEnded += AudioPlayer_MediaEnded;
             using (SpeechSynthesizer synthesizer = new SpeechSynthesizer())
             {
                 if (Tran.IsAudioPlaying == true)
@@ -65,13 +95,10 @@ namespace SinunyTranslate_Lite.ViewModel
         /// <summary>
         /// 朗读完成后
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AudioPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        private void AudioPlayer_MediaEnded()
         {
             Tran.IsAudioPlaying = false;
         }
-
         /// <summary>
         /// 开始翻译
         /// </summary>

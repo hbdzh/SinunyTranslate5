@@ -123,5 +123,14 @@ namespace SinunyTranslate_Lite.Model
             get => isAudioPlaying;
             set => SetProperty(ref isAudioPlaying, value);
         }
+        private bool isSpeechRecognition;
+        /// <summary>
+        /// 是否正在进行语音识别
+        /// </summary>
+        public bool IsSpeechRecognition
+        {
+            get => isSpeechRecognition;
+            set => SetProperty(ref isSpeechRecognition, value);
+        }
     }
 }

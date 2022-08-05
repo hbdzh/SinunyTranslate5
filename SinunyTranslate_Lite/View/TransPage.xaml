@@ -17,38 +17,15 @@
             <RowDefinition
                 Height="1.3*" />
         </Grid.RowDefinitions>
-        <Grid
+        <StackPanel
             Grid.Row="0"
             Margin="0,0,30,10"
+            Orientation="Horizontal"
+            VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition
-                    Width="1*"
-                    MaxWidth="205" />
-                <ColumnDefinition
-                    Width="0.1*" />
-                <ColumnDefinition
-                    Width="1*"
-                    MaxWidth="205" />
-                <ColumnDefinition
-                    Width="0.1*" />
-                <ColumnDefinition
-                    Width="1*"
-                    MaxWidth="205" />
-                <ColumnDefinition
-                    Width="0.1*" />
-                <ColumnDefinition
-                    Width="0.6*"
-                    MinWidth="65"
-                    MaxWidth="125" />
-                <ColumnDefinition
-                    Width="1*" />
-            </Grid.ColumnDefinitions>
             <ComboBox
-                Grid.Column="0"
                 Margin="5,0,0,0"
                 Height="35"
-                HorizontalAlignment="Stretch"
                 SelectedItem="{x:Bind Path=TransVM.Tran.SourceLanguage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 ItemsSource="{x:Bind Path=TransVM.Tran.LanguageList,Mode=OneWay}">
                 <interactivity:Interaction.Behaviors>
@@ -62,9 +39,8 @@
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
             <ComboBox
-                Grid.Column="2"
+                Margin="15,0,0,0"
                 Height="35"
-                HorizontalAlignment="Stretch"
                 SelectedItem="{x:Bind Path=TransVM.Tran.TargetLanguage,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 ItemsSource="{x:Bind Path=TransVM.Tran.LanguageList,Mode=OneWay}">
                 <interactivity:Interaction.Behaviors>
@@ -78,9 +54,8 @@
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
             <ComboBox
-                Grid.Column="4"
+                Margin="15,0,0,0"
                 Height="35"
-                HorizontalAlignment="Stretch"
                 SelectedItem="{x:Bind Path=TransVM.Tran.UseTranEngine,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                 ItemsSource="{x:Bind Path=TransVM.Tran.TranEngineList,Mode=OneWay}">
                 <interactivity:Interaction.Behaviors>
@@ -94,12 +69,20 @@
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
             <Button
-                Grid.Column="6"
+                Margin="15,0,0,0"
+                MinWidth="75"
                 Content="翻译"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Stretch"
                 Command="{x:Bind Path=TransVM.StartTranslateCommand}" />
-        </Grid>
+            <ToggleButton
+                Margin="15,0,0,0"
+                ToolTipService.ToolTip="语音识别"
+                Command="{x:Bind Path=TransVM.VoiceInputCommand}"
+                IsChecked="{x:Bind Path=TransVM.Tran.IsSpeechRecognition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                <FontIcon
+                    FontSize="16"
+                    Glyph="&#xe720;" />
+            </ToggleButton>
+        </StackPanel>
         <TextBox
             Grid.Row="1"
             Margin="0,0,0,10"
@@ -135,43 +118,63 @@
                         x:Key="TextControlBorderBrushFocused"
                         Color="Transparent" />
                 </StackPanel.Resources>
-                <StackPanel
+                <TextBox
                     Margin="5,10,0,0"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind Path=TransVM.Tran.ResultShow,Mode=OneWay}">
-                    <TextBox
-                        Header="翻译"
-                        Text="{x:Bind Path=TransVM.Tran.TranslateResult,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                        Style="{StaticResource DisplayTextBox}" />
-                    <ToggleButton
-                        Margin="-30,0,0,0"
-                        ToolTipService.ToolTip="语音朗读"
-                        VerticalAlignment="Top"
-                        Background="Transparent"
-                        BorderBrush="Transparent"
-                        BorderThickness="0"
-                        IsChecked="{x:Bind TransVM.Tran.IsAudioPlaying,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                        <ToggleButton.Content>
-                            <FontIcon
-                                Glyph="&#xe767;"
-                                FontSize="15" />
-                        </ToggleButton.Content>
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior
-                                EventName="Click">
-                                <core:EventTriggerBehavior.Actions>
-                                    <core:InvokeCommandAction
-                                        Command="{x:Bind Path=TransVM.PlayAudioCommand}"
-                                        CommandParameter="{x:Bind Path=AudioPlayer,Mode=OneWay}" />
-                                </core:EventTriggerBehavior.Actions>
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </ToggleButton>
-                    <MediaElement
-                        Volume="1.0"
-                        AutoPlay="True"
-                        Name="AudioPlayer" />
-                </StackPanel>
+                    IsReadOnly="True"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Visibility="{x:Bind Path=TransVM.Tran.ResultShow,Mode=OneWay}"
+                    Text="{x:Bind Path=TransVM.Tran.TranslateResult,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource InputTextBox}">
+                    <TextBox.Header>
+                        <StackPanel
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Text="翻译" />
+                            <ToggleButton
+                                Margin="10,0,0,0"
+                                ToolTipService.ToolTip="语音朗读"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                BorderThickness="0"
+                                IsChecked="{x:Bind TransVM.Tran.IsAudioPlaying,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                <ToggleButton.Content>
+                                    <FontIcon
+                                        Glyph="&#xe767;"
+                                        FontSize="15" />
+                                </ToggleButton.Content>
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior
+                                        EventName="Click">
+                                        <core:EventTriggerBehavior.Actions>
+                                            <core:InvokeCommandAction
+                                                Command="{x:Bind Path=TransVM.PlayAudioCommand}"
+                                                CommandParameter="{x:Bind Path=AudioPlayer,Mode=OneWay}" />
+                                        </core:EventTriggerBehavior.Actions>
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </ToggleButton>
+                            <MediaElement
+                                Volume="1.0"
+                                AutoPlay="True"
+                                Name="AudioPlayer">
+                                <interactivity:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior
+                                        EventName="MediaEnded">
+                                        <core:EventTriggerBehavior.Actions>
+                                            <core:InvokeCommandAction
+                                                Command="{x:Bind Path=TransVM.AudioPlayer_MediaEndedCommand}" />
+                                        </core:EventTriggerBehavior.Actions>
+                                    </core:EventTriggerBehavior>
+                                </interactivity:Interaction.Behaviors>
+                            </MediaElement>
+                        </StackPanel>
+                    </TextBox.Header>
+                </TextBox>
                 <TextBox
                     Margin="5,10,0,0"
                     Header="解释"
